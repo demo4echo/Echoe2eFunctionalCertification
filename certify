@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Setup target version(s)
+export KARATE_VERSION="0.9.3"
+
+# Run the Karate feature in the given folder (and sub folders)
+java -jar lib/karate-${KARATE_VERSION}.jar src/test/karate
