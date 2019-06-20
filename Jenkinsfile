@@ -52,17 +52,19 @@ def resolveCloudNameByBranchName() {
 //	node('master') {
 		println "Within resolveCloudNameByBranchName() => Node name is: [${env.NODE_NAME}]"
 
+		// These variables are null here
 		println "Branch name is: [${env.BRANCH_NAME}]"
 		println "GIT branch is: [${env.GIT_BRANCH}]"
+
+		// Work with Job name instead of Git branch name
 		println "Job name is: [${env.JOB_NAME}]"
+		def projectedBranchName = env.JOB_NAME.split(/-/)[1]
+		println "Projected branch name is: [" + projectedBranchName + "]"
 
-		def theName = env.JOB_NAME.split(/-/)[1]
-		println "Branch is: [" + theName + "]"
-
-		if (env.BRANCH_NAME == 'master') {
+		if (projectedBranchName == 'master') {
 			env.CLOUD_NAME = 'production'
-		} else if (env.BRANCH_NAME == 'integration') {                 
-			env.CLOUD_NAME = 'development'		    
+		} else if (projectedBranchName == 'integration') {                 
+			env.CLOUD_NAME = 'development1'		    
 //			env.CLOUD_NAME = 'staging'
 		}
 		else {
