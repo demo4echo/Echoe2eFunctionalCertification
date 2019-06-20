@@ -56,6 +56,9 @@ def resolveCloudNameByBranchName() {
 		println "GIT branch is: [${env.GIT_BRANCH}]"
 		println "Job name is: [${env.JOB_NAME}]"
 
+		def theName = env.JOB_NAME.split(/-/)[1]
+		println "Branch is: [" + theName + "]"
+
 		if (env.BRANCH_NAME == 'master') {
 			env.CLOUD_NAME = 'production'
 		} else if (env.BRANCH_NAME == 'integration') {                 
