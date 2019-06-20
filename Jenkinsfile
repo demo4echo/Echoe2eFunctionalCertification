@@ -54,7 +54,7 @@ def resolveCloudNameByBranchName() {
 
 //		println "Branch name is: [${env.BRANCH_NAME}]"
 		println "env.BRANCH_NAME: Branch name is: [${env.BRANCH_NAME}]"
-		println "BRANCH_NAME: Branch name is: [$BRANCH_NAME]"
+//		println "BRANCH_NAME: Branch name is: [$BRANCH_NAME]"
 		println "BRANCH_NAME{}: Branch name is: [${BRANCH_NAME}]"
 		println "env.GIT_BRANCH: Branch name is: [${env.GIT_BRANCH}]"
 		println "GIT_BRANCH: Branch name is: [$GIT_BRANCH]"
