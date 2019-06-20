@@ -7,7 +7,7 @@ Scenario Outline: Echo: <what>
 	Given path 'echo'
 	And param what = <what>
 	When method get
-	Then status 201
+	Then status 200
 	And match response == <expected>
 
 	Examples:
