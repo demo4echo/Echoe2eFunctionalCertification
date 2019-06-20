@@ -64,7 +64,7 @@ def resolveCloudNameByBranchName() {
 		if (projectedBranchName == 'master') {
 			env.CLOUD_NAME = 'production'
 		} else if (projectedBranchName == 'integration') {                 
-			env.CLOUD_NAME = 'development1'		    
+			env.CLOUD_NAME = 'development'		    
 //			env.CLOUD_NAME = 'staging'
 		}
 		else {
