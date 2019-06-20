@@ -52,7 +52,13 @@ def resolveCloudNameByBranchName() {
 //	node('master') {
 		println "Within resolveCloudNameByBranchName() => Node name is: [${env.NODE_NAME}]"
 
-		println "Branch name is: [${env.BRANCH_NAME}]"
+//		println "Branch name is: [${env.BRANCH_NAME}]"
+		println "env.BRANCH_NAME: Branch name is: [${env.BRANCH_NAME}]"
+		println "BRANCH_NAME: Branch name is: [$BRANCH_NAME]"
+		println "BRANCH_NAME{}: Branch name is: [${BRANCH_NAME}]"
+		println "env.GIT_BRANCH: Branch name is: [${env.GIT_BRANCH}]"
+		println "GIT_BRANCH: Branch name is: [$GIT_BRANCH]"
+		println "GIT_BRANCH{}: Branch name is: [${GIT_BRANCH}]"
 
 		if (env.BRANCH_NAME == 'master') {
 			env.CLOUD_NAME = 'production'
