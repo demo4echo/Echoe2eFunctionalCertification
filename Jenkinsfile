@@ -16,7 +16,7 @@ pipeline {
 		X_EFRAT_ECHO_ECHOFE_DUMMY_ENV_VAR = assimilateEnvironmentVariables()
 	}
 	stages {
-		stage('\u2776 setup \u2728') {//\u1F4A1
+		stage('\u2776 certify (functional) \u2728') {//\u1F4A1
 			steps {
 				sh './certify'
 			}
@@ -28,7 +28,7 @@ pipeline {
 		}
 		success {
 			echo 'I succeeeded!'
-			junit 'build/test-results/**/*.xml'
+//			junit 'build/test-results/**/*.xml'
 		}
 		unstable {
 			echo 'I am unstable :/'
@@ -57,7 +57,8 @@ def resolveCloudNameByBranchName() {
 		if (env.BRANCH_NAME == 'master') {
 			env.CLOUD_NAME = 'production'
 		} else if (env.BRANCH_NAME == 'integration') {                 
-			env.CLOUD_NAME = 'staging'
+			env.CLOUD_NAME = 'development'		    
+//			env.CLOUD_NAME = 'staging'
 		}
 		else {
 			env.CLOUD_NAME = 'development'		    

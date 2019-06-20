@@ -1,1 +1,2 @@
 certify.config.json merge=ours
+EnvFile.properties merge=ours
