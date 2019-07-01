@@ -1,5 +1,6 @@
 {
 	"targetEndpointUrl.comment": "http://il-tmeltser",
 	"targetEndpointUrl.comment2": "http://echofe1ngress.serveo.net",
-	"targetEndpointUrl": "http://10.106.9.101"
+	"targetEndpointUrl.comment3": "http://10.106.9.101",
+	"targetEndpointUrl": "http://nginx-ic-nginx-ingress-controller.kube-system"
 }
