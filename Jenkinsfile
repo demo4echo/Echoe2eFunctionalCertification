@@ -28,7 +28,7 @@ pipeline {
 		}
 		success {
 			echo 'I succeeeded!'
-//			junit 'build/test-results/**/*.xml'
+			junit 'target/**/*.xml'
 		}
 		unstable {
 			echo 'I am unstable :/'
