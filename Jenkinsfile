@@ -29,6 +29,7 @@ pipeline {
 		success {
 			echo 'I succeeeded!'
 			junit 'target/**/*.xml'
+			cucumber 'target/**/*.json'
 		}
 		unstable {
 			echo 'I am unstable :/'
