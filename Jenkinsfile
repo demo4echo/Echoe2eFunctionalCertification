@@ -59,7 +59,7 @@ def resolveCloudNameByBranchName() {
 
 		// Work with Job name instead of Git branch name
 		println "Job name is: [${env.JOB_NAME}]"
-		def projectedBranchName = env.JOB_NAME.split(/-/)[1]
+		def projectedBranchName = env.JOB_NAME.split(/-/).last()
 		println "Projected branch name is: [" + projectedBranchName + "]"
 
 		if (projectedBranchName == 'master') {
