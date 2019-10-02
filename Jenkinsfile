@@ -62,15 +62,8 @@ def resolveCloudNameByBranchName() {
 		def projectedBranchName = env.JOB_NAME.split(/-/).last()
 		println "Projected branch name is: [" + projectedBranchName + "]"
 
-		if (projectedBranchName == 'master') {
-			env.CLOUD_NAME = 'production'
-		} else if (projectedBranchName == 'integration') {                 
-			env.CLOUD_NAME = 'staging'
-		}
-		else {
-			env.CLOUD_NAME = 'development'		    
-		}
-		
+		// Set the target cloud name
+		env.CLOUD_NAME = projectedBranchName
 		println "Resolved cloud name is: [${env.CLOUD_NAME}]"
 		
 		// Return the resolved cloud name
