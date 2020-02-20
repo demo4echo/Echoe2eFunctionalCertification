@@ -7,7 +7,7 @@ def jenkinsSlavePodManifestResourceAsString = libraryResource 'jenkinsSlavePodMa
 pipeline {
 	agent {
 		kubernetes {
-			cloud pipelineCommon.resolveCloudNameByBranchName()
+			cloud pipelineCommon.resolveCloudNameByJobName()
 			label pipelineCommon.K8S_AGENT_LABEL
 			defaultContainer pipelineCommon.K8S_AGENT_DEFAULT_CONTAINER
 			yaml jenkinsSlavePodManifestResourceAsString
@@ -21,7 +21,7 @@ pipeline {
 	environment {
 		// We use this dummy environment variable to load all the properties from the designated file into environment variable (per branch)
 		// This is indeed a pseudo comment 4 All
-		X_EFRAT_ECHO_DUMMY_ENV_VAR = assimilateEnvironmentVariables()
+//		X_EFRAT_ECHO_DUMMY_ENV_VAR = assimilateEnvironmentVariables()
 	}
 	stages {
 		stage('\u2776 certify (functional) \u2728') {//\u1F4A1
