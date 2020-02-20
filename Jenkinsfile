@@ -1,17 +1,25 @@
+// We can omit this one as we marked the shared library to load implicitly
+@Library('EchoSharedLibrary') _
+
+// Load shared resources
+def jenkinsSlavePodManifestResourceAsString = libraryResource 'jenkinsSlavePodManifest.yaml'
+
 pipeline {
 	agent {
 		kubernetes {
-			cloud resolveCloudNameByBranchName()
-			label 'jenkins-slave-pod-agent'
-			defaultContainer 'jdk-gradle-docker-k8s-helm'
-			yamlFile 'Jenkinsfile.JenkinsSlaveManifest.yaml'
+			cloud pipelineCommon.resolveCloudNameByBranchName()
+			label pipelineCommon.K8S_AGENT_LABEL
+			defaultContainer pipelineCommon.K8S_AGENT_DEFAULT_CONTAINER
+			yaml jenkinsSlavePodManifestResourceAsString
 		}
 	}
 	options { 
 		timestamps() 
+
+		buildDiscarder(logRotator(numToKeepStr: pipelineCommon.OPTIONS_BUILD_DISCARDER_LOG_ROTATOR_NUM_TO_KEEP_STR))
 	}
 	environment {
-		// We use this dummy environment variable to load all the properties from the designated file into environment variable (per brach)
+		// We use this dummy environment variable to load all the properties from the designated file into environment variable (per branch)
 		// This is indeed a pseudo comment 4 All
 		X_EFRAT_ECHO_DUMMY_ENV_VAR = assimilateEnvironmentVariables()
 	}
@@ -36,57 +44,9 @@ pipeline {
 		}
 		failure {
 			echo 'I failed :('
-//			archiveArtifacts artifacts: 'Jenkinsfile', fingerprint: true
 		}
 		changed {
 			echo 'Things were different before...'
 		}
 	}
-}
-
-//
-// Determine the applicable k8s cloud (towards Jenkins' configuration of the K8S plugin)
-//
-def resolveCloudNameByBranchName() {
-	node {
-//	node(env.NODE_NAME) {
-//	node('master') {
-		println "Within resolveCloudNameByBranchName() => Node name is: [${env.NODE_NAME}]"
-
-		// These variables are null here
-		println "Branch name is: [${env.BRANCH_NAME}]"
-		println "GIT branch is: [${env.GIT_BRANCH}]"
-
-		// Work with Job name instead of Git branch name
-		println "Job name is: [${env.JOB_NAME}]"
-		def projectedBranchName = env.JOB_NAME.split(/-/).last()
-		println "Projected branch name is: [" + projectedBranchName + "]"
-
-		// Set the target cloud name
-		env.CLOUD_NAME = projectedBranchName
-		println "Resolved cloud name is: [${env.CLOUD_NAME}]"
-		
-		// Return the resolved cloud name
-		return env.CLOUD_NAME
-	}
-}
-
-//
-// Load all the properties in the per brnach designated file as environment variables
-//
-def assimilateEnvironmentVariables() {
-//	node(env.NODE_NAME) {
-//		checkout(scm) => don't need it as we'll call the function after the repository has been fetched (checkout(scm) is called in the 'agent' phase)
-
-		println "Within assimilateEnvironmentVariables() => Node name is: [${env.NODE_NAME}]"
-
-		def props = readProperties interpolate: true, file: 'EnvFile.properties'
-		props.each {
-			key,value -> env."${key}" = "${value}" 
-		}
-		
-		println "JENKINS_SLAVE_K8S_DEPLOYMENT_CLOUD_NAME value is: [${env.JENKINS_SLAVE_K8S_DEPLOYMENT_CLOUD_NAME}]"
-
-		return env.JENKINS_SLAVE_K8S_DEPLOYMENT_CLOUD_NAME
-//	}
 }
