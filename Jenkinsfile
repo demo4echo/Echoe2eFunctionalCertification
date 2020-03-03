@@ -7,7 +7,8 @@ def jenkinsSlavePodManifestResourceAsString = libraryResource 'jenkinsSlavePodMa
 pipeline {
 	agent {
 		kubernetes {
-			cloud pipelineCommon.resolveCloudNameByJobName()
+//			cloud pipelineCommon.resolveCloudNameByJobName()
+			cloud pipelineCommon.resolveCloudNameByBranchName()
 			label pipelineCommon.constructJenkinsSlavePodAgentLabel()
 			defaultContainer pipelineCommon.K8S_AGENT_DEFAULT_CONTAINER
 			yaml jenkinsSlavePodManifestResourceAsString
@@ -18,6 +19,10 @@ pipeline {
 
 		buildDiscarder(logRotator(numToKeepStr: pipelineCommon.OPTIONS_BUILD_DISCARDER_LOG_ROTATOR_NUM_TO_KEEP_STR))
 	}
+//	triggers {
+//		upstream(upstreamProjects: "echobe/${env.BRANCH_NAME},echofe/${env.BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
+//		upstream(upstreamProjects: "echobe/${env.UPSTREAM_JOB_BRANCH_NAME},echofe/${env.UPSTREAM_JOB_BRANCH_NAME}", threshold: hudson.model.Result.SUCCESS)
+//	}
 	stages {
 		stage('\u2776 certify (functional) \u2728') {//\u1F4A1
 			steps {
