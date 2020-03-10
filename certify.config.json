@@ -2,5 +2,6 @@
 	"targetEndpointUrl.comment": "http://il-tmeltser",
 	"targetEndpointUrl.comment2": "http://echofe1ngress.serveo.net",
 	"targetEndpointUrl.comment3": "http://10.106.9.101",
-	"targetEndpointUrl": "http://nginx-ic-nginx-ingress-controller.kube-system"
+	"targetEndpointUrl.comment4": "http://nginx-ic-nginx-ingress-controller.kube-system",
+	"targetEndpointUrl": "http://echo-k8s-prod.il-labs.mavenir.com"
 }
